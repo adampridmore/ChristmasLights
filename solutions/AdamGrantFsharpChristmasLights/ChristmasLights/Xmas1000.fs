@@ -26,11 +26,10 @@ let private applyCommand command (square:Square) (grid:Grid) : Grid =
 
 let private off = applyCommand (fun _ -> '.')
 let private on = applyCommand (fun _ -> '*')
-
 let private toggle = 
     applyCommand (function 
-        | '*' -> '.'
-        | '.' -> '*'
+        | light when light = lightOn -> lightOff
+        | light when light = lightOff -> lightOn
         | _ -> failwith "NO!")
 
 let printGrid grid = 
@@ -43,9 +42,10 @@ let printGrid grid =
 let runCommands (commands: seq<Command>) = 
     let mapCommandToFn command = 
         match command with
-        | On((a,b),(c,d)) -> on (Square(Coord(a,b),Coord(c,d)))
-        | Off((a,b),(c,d)) -> off (Square(Coord(a,b),Coord(c,d)))
-       
+        | On(square) -> on square
+        | Off(square) -> off square
+        | Toggle(square) -> toggle square
+        
     let folder (grid : Grid) (command : Grid -> Grid) = 
         grid |> command
 

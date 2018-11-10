@@ -10,7 +10,8 @@ let pbracketcoord = betweenStrings "(" ")" pcoord
 let psquare = pipe2 pbracketcoord pbracketcoord (fun a b -> Square(a,b))
 let poff = pstring "OFF " >>. psquare |>> Off
 let pon = pstring "ON " >>. psquare |>> On
-let pcommand = spaces >>. (pon <|> poff)
+let ptoggle = pstring "TOGGLE " >>. psquare |>> Toggle
+let pcommand = spaces >>. (pon <|> poff <|> ptoggle)
 let pmanycommands = many pcommand
 
 let parseParserCommand p str = 
