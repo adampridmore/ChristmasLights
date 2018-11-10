@@ -1,10 +1,8 @@
-﻿open System
-open Xmas1000
+﻿open Xmas1000
 open XmasParser
 
 [<EntryPoint>]
-let main argv =
-
+let main _ =
     @"XmasCommands.txt" 
     |> System.IO.File.ReadAllText
     |> parseCommands

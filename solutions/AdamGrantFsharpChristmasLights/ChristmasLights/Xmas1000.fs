@@ -1,22 +1,18 @@
 ﻿module Xmas1000
 open XmasTypes
 
-type Row = seq<char>
-type Grid = seq<Row>
-
-let blankRow = (Array.init<char> 11 (fun _ -> '*') |> Array.toSeq) :> Row
-let blankGrid = (Array.init<seq<char>> 7 (fun _ -> blankRow) |> Array.toSeq) :> Grid
-
-let mapij fn grid = 
+let private mapij fn grid = 
     grid 
-    |> Seq.mapi (fun i row -> row |> Seq.mapi (fun j value -> fn i j value))
+    |> Seq.mapi (fun i row -> 
+        row 
+        |> Seq.mapi (fun j value -> fn i j value)
+    )
 
-let applyCommand command (square:Square) (grid:Grid) : Grid = 
-    let (topLeft: Coord),(bottomRight:Coord) = square
+let private applyCommand command (square:Square) (grid:Grid) : Grid = 
+    let (tlc, tlr),(brc, brr) = square
+
     let applyToCell colIndex rowIndex cell =
         let isInBoundingBox = 
-            let (tlc, tlr) = topLeft
-            let (brc, brr) = bottomRight
             rowIndex >= tlr && rowIndex <= brr &&
             colIndex >= tlc && colIndex <= brc
 
@@ -28,14 +24,14 @@ let applyCommand command (square:Square) (grid:Grid) : Grid =
     |> mapij (fun colIndex rowIndex cell -> 
         cell |> applyToCell colIndex rowIndex)
 
-let off = applyCommand (fun _ -> '.')
-let on = applyCommand (fun _ -> '*')
+let private off = applyCommand (fun _ -> '.')
+let private on = applyCommand (fun _ -> '*')
 
-let toggle = applyCommand (fun c -> 
-    match c with 
-    | '*' -> '.'
-    | '.' -> '*'
-    | _ -> failwith "NO!")
+let private toggle = 
+    applyCommand (function 
+        | '*' -> '.'
+        | '.' -> '*'
+        | _ -> failwith "NO!")
 
 let printGrid grid = 
     let printRow row = 
@@ -57,11 +53,6 @@ let runCommands (commands: seq<Command>) =
     |> Seq.map mapCommandToFn
     |> Seq.fold folder blankGrid
     
-//type Command = 
-//    | On of ((int*int)*(int*int))
-//    | Off of ((int*int)*(int*int))
-//    | Toggle of ((int*int)*(int*int))
-
 let toSquare (a,b) (c,d) = 
     Square(Coord(a,b),Coord(c,d))
 
