@@ -3,6 +3,7 @@
 open Xunit
 open XmasParser
 open FParsec
+open XmasTypes
 
 let parse p str = 
     match run p str with    
