@@ -7,14 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="XmasCommands.txt" />
     <Compile Include="XmasTypes.fs" />
     <Compile Include="XmasParser.fs" />
     <Compile Include="XmasParserTests.fs" />
     <Compile Include="Xmas1000.fs" />
     <None Include="Script1.fsx" />
     <None Include="Script2.fsx" />
+    <None Include="Script3.fsx" />
     <Compile Include="Tests.fs" />
   </ItemGroup>
+
+  <ItemGroup />
 
   <ItemGroup>
     <PackageReference Include="FParsec" Version="1.0.3" />

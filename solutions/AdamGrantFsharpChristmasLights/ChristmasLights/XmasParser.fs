@@ -12,3 +12,11 @@ let poff = pstring "OFF " >>. psquare |>> Off
 let pon = pstring "ON " >>. psquare |>> On
 let pcommand = spaces >>. (pon <|> poff)
 let pmanycommands = many pcommand
+
+let parseParserCommand p str = 
+    match run p str with    
+    | Success(result, _, _)   -> result
+    | Failure(errorMsg, _, _) -> 
+        failwith (sprintf "Failure: %s" errorMsg)
+ 
+let parseCommands = parseParserCommand pmanycommands 

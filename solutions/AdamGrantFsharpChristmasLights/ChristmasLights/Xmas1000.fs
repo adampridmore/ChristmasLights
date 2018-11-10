@@ -44,26 +44,18 @@ let printGrid grid =
 
     grid |> Seq.iter printRow
 
-//let runCommands (commands: seq<Command>) = 
-//    let mapCommandToFn command = 
-//        match command with
-//        | On((a,b),(c,d)) -> on (Square(Coord(a,b),Coord(c,d)))
-//        | Off((a,b),(c,d)) -> off (Square(Coord(a,b),Coord(c,d)))
+let runCommands (commands: seq<Command>) = 
+    let mapCommandToFn command = 
+        match command with
+        | On((a,b),(c,d)) -> on (Square(Coord(a,b),Coord(c,d)))
+        | Off((a,b),(c,d)) -> off (Square(Coord(a,b),Coord(c,d)))
        
-//    let doubleTuple a = (a,a)
+    let folder (grid : Grid) (command : Grid -> Grid) = 
+        grid |> command
 
-//    let apply (grid : Grid,command) = 
-//        grid 
-//        |> command
-//        |> doubleTuple
-
-//    commands
-//    |> Seq.map mapCommandToFn
-//    |> Seq.fold apply blankGrid
-
-    //commands
-    //|> Seq.mapFold apply blankGrid
-    //|> Seq.last
+    commands 
+    |> Seq.map mapCommandToFn
+    |> Seq.fold folder blankGrid
     
 //type Command = 
 //    | On of ((int*int)*(int*int))
