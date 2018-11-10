@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="FParsemas.fs" />
+    <Compile Include="XmasParser.fs" />
+    <Compile Include="XmasParserTests.fs" />
     <Compile Include="Xmas1000.fs" />
     <None Include="Script1.fsx" />
     <None Include="Script2.fsx" />

@@ -7,7 +7,6 @@ let mapij fn grid =
     grid 
     |> Seq.mapi (fun i row -> row |> Seq.mapi (fun j value -> fn i j value))
 
-
 let applyCommand command (topLeft) (bottomRight) grid = 
     let applyToCell colIndex rowIndex cell =
         let isInBoundingBox = 
