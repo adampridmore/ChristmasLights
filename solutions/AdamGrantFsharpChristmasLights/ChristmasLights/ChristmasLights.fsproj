@@ -10,6 +10,7 @@
     <Compile Include="FParsemas.fs" />
     <Compile Include="Xmas1000.fs" />
     <None Include="Script1.fsx" />
+    <None Include="Script2.fsx" />
     <Compile Include="Tests.fs" />
   </ItemGroup>
 
