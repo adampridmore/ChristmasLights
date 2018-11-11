@@ -45,7 +45,7 @@ let ``parse command``() =
 let ``parse many commands``() = 
     let text = @"OFF (1,2)(3,4)
 ON (5,6)(7,8)
-TOGGLE (9,10,11,12)"
+TOGGLE (9,10)(11,12)"
     
     let actual = parseParserCommand pmanycommands text
 
